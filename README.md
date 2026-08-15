@@ -1,112 +1,219 @@
-# 🎓 Dataset Sistem Informasi Akademik
+# 🎓 University Admissions Analysis
 
-## 📖 Ringkasan Dataset
+An exploratory data analysis project examining **university admissions, student characteristics, academic performance, and enrollment outcomes** to identify patterns in applicant profiles and admission decisions.
 
-Dataset ini merepresentasikan beberapa proses bisnis utama dalam sistem informasi akademik perguruan tinggi, mencakup seluruh siklus hidup mahasiswa—mulai dari penerimaan mahasiswa baru (admisi), aktivitas akademik, kelulusan, hingga data master program studi.
+## 🎯 Problem
 
-Database ini terdiri dari empat dataset yang saling terhubung dan dapat dihubungkan menggunakan identifikasi mahasiswa seperti **Nomor Induk Mahasiswa (NIM)** serta informasi program studi.
+Universities receive applicants with different academic backgrounds, test scores, extracurricular experiences, and demographic characteristics.
 
----
+This project explores:
 
-## 🗂️ Deskripsi Dataset
+* What characteristics are associated with admission outcomes?
+* How do academic scores differ between admitted and rejected applicants?
+* Which applicant characteristics show the strongest relationship with admission?
+* What patterns can be observed across student profiles?
+* Can exploratory analysis provide useful insights for understanding the admissions process?
 
-### 1. Data Admisi (`admisi.csv`)
+## 📊 Dataset
 
-Tabel ini mencatat proses penerimaan mahasiswa baru di universitas. Tabel memuat informasi pendaftaran calon mahasiswa beserta atribut yang menunjukkan status akhir penerimaan dari setiap pendaftar. Pendaftar yang berhasil lolos seleksi dan resmi mendaftar ulang sebagai mahasiswa akan mendapatkan Nomor Induk Mahasiswa (NIM).
+The project uses a university admissions dataset containing information about student applications, academic performance, and admission outcomes.
 
-**Karakteristik Utama:**
-* Mencatat data pendaftaran pendaftar
-* Menunjukkan status penerimaan (lolos/tidak)
-* Menghasilkan NIM untuk pendaftar yang diterima
-* NIM dirancang sebagai **Smart Key**, yang secara unik mengidentifikasi setiap mahasiswa sepanjang siklus akademik mereka
+### Main Variables
 
----
+| Variable            | Description                        |
+| ------------------- | ---------------------------------- |
+| `GRE Score`         | Graduate Record Examination score  |
+| `TOEFL Score`       | English proficiency test score     |
+| `University Rating` | University rating                  |
+| `SOP`               | Statement of Purpose strength      |
+| `LOR`               | Letter of Recommendation strength  |
+| `CGPA`              | Undergraduate GPA / CGPA           |
+| `Research`          | Research experience indicator      |
+| `Chance of Admit`   | Estimated probability of admission |
 
-### 2. Data Aktivitas Perkulihan (`aktivitas-perkuliahan.csv`)
+The dataset contains **500 student application records**.
 
-Tabel ini mencatat aktivitas akademik mahasiswa selama masa studi. Tabel mencakup pengambilan mata kuliah, catatan semester, program remedial, beban sks, dan nilai huruf yang diperoleh pada setiap mata kuliah. Nilai yang tercatat kemudian dikonversi menjadi bobot nilai numerik untuk menghitung Indeks Prestasi Kumulatif (IPK) mahasiswa.
+## 🔬 Method
 
-#### Perhitungan IPK
+The analysis follows an exploratory data-analysis workflow.
 
-IPK kumulatif dihitung menggunakan rumus rata-rata tertimbang standar:
+### 1. Data Preparation
 
-$$\text{IPK} = \frac{\sum (\text{Bobot Nilai} \times \text{SKS})}{\sum \text{SKS}}$$
+The dataset is prepared by:
 
-*Keterangan:*
-* **Bobot Nilai** = Nilai numerik yang disesuaikan dengan nilai huruf
-* **SKS** = Bobot kredit dari setiap mata kuliah
+* Inspecting data types and structure
+* Checking for missing values
+* Removing unnecessary index columns
+* Renaming variables where appropriate
+* Checking numerical distributions
+* Identifying potential outliers
 
-#### Format Kode Semester
+### 2. Exploratory Data Analysis
 
-Kode semester mengikuti format: `[Tahun Akademik (4 digit)][Kode Semester (1 digit)]`
+The analysis examines relationships between admission probability and:
 
-* **Contoh:** `20251`
-  * **Tahun Akademik:** 2025/2026
-  * **Semester:** Ganjil
+* GRE score
+* TOEFL score
+* CGPA
+* University rating
+* Statement of Purpose
+* Letter of Recommendation
+* Research experience
 
-#### Klasifikasi Kode Semester
+### 3. Correlation Analysis
 
-| Kode | Jenis Semester |
-| :---: | :--- |
-| **1** | Semester Ganjil |
-| **2** | Semester Genap |
-| **3** | Remedial Ganjil |
-| **4** | Remedial Genap |
+Correlation analysis is used to identify variables with stronger linear relationships with `Chance of Admit`.
 
-#### Konversi Nilai Huruf
+### 4. Group Comparison
 
-| Nilai Huruf | Bobot Nilai |
-| :---: | :---: |
-| **A** | 4.00 |
-| **A-** | 3.70 |
-| **B+** | 3.30 |
-| **B** | 3.00 |
-| **B-** | 2.70 |
-| **C+** | 2.30 |
-| **C** | 2.00 |
-| **D** | 1.00 |
-| **E** | 0.00 |
+Applicant characteristics are compared across different levels of admission probability and research experience.
 
----
+The analysis is primarily **descriptive and exploratory**, rather than a predictive admissions model.
 
-### 3. Data Kelulusan (`peserta-wisuda-tervalidasi.csv`)
+## 📈 Results
 
-Tabel ini mencatat mahasiswa yang telah berhasil menyelesaikan seluruh persyaratan akademik dan telah divalidasi secara resmi sebagai peserta upacara wisuda.
+### 1. Academic Performance Is Strongly Associated with Admission Probability
 
-**Karakteristik Utama:**
-* Mencatat kelayakan kelulusan
-* Menunjukkan mahasiswa yang telah memenuhi seluruh persyaratan akademik
-* Berisi informasi peserta wisuda yang tervalidasi
-* Merepresentasikan tahap akhir dari siklus hidup akademik mahasiswa
+Among the academic variables, **CGPA and GRE score** show strong positive relationships with `Chance of Admit`.
 
----
+Students with stronger academic performance generally have higher estimated admission probabilities.
 
-### 4. Data Master Program Studi (`homebase.csv`)
+### 2. GRE and TOEFL Scores Show Positive Relationships
 
-Tabel ini berfungsi sebagai dataset referensi utama untuk klasifikasi akademik institusi. Tabel ini menyediakan informasi terstandarisasi mengenai fakultas, jenjang pendidikan, dan program studi.
+Higher standardized test scores tend to be associated with higher admission probabilities.
 
-Dataset ini utamanya digunakan sebagai tabel acuan (reference) untuk mengintegrasikan dan mengkategorikan catatan akademik di seluruh dataset lainnya.
+This suggests that standardized academic performance is an important characteristic within the analyzed dataset.
 
-**Karakteristik Utama:**
-* Informasi fakultas
-* Klasifikasi jenjang pendidikan
-* Informasi program studi
-* Data acuan (master) untuk pelaporan akademik
+### 3. Research Experience Is Associated with Higher Admission Probability
 
----
+Applicants with research experience generally show higher admission probabilities than applicants without research experience.
 
-## 📌 Relasi Dataset
+However, this is a descriptive relationship and should not be interpreted as proof that research experience directly causes admission.
 
-Keempat dataset ini secara kolektif menggambarkan perjalanan akademik lengkap seorang mahasiswa:
+### 4. Statement of Purpose and Recommendation Scores
+
+SOP and LOR ratings also show positive relationships with admission probability, although their associations are weaker than the strongest academic indicators.
+
+### 5. University Rating
+
+Applicants targeting higher-rated universities tend to have stronger academic profiles and higher estimated admission probabilities.
+
+This suggests that university selection and applicant characteristics are closely related within the dataset.
+
+## 📊 Visualization
+
+### Correlation Heatmap
+
+![Correlation Heatmap](correlation_heatmap.png)
+
+The correlation heatmap provides an overview of the relationships between academic characteristics, application attributes, and admission probability.
+
+### Academic Performance vs. Admission Probability
+
+![CGPA vs Admission Probability](cgpa_admission.png)
+
+The relationship between CGPA and admission probability demonstrates the strong positive association between undergraduate academic performance and the estimated chance of admission.
+
+### Research Experience
+
+![Research Experience](research_experience.png)
+
+The comparison highlights differences in admission probability between applicants with and without research experience.
+
+### Recommended Additional Visualizations
+
+For a stronger portfolio presentation, I would include:
+
+* GRE vs. Chance of Admit
+* CGPA vs. Chance of Admit
+* TOEFL vs. Chance of Admit
+* Research vs. Chance of Admit
+* Admission probability distribution
+* Correlation heatmap
+
+## 💡 Conclusion
+
+The analysis identifies several characteristics that are strongly associated with university admission probability.
+
+### Key Takeaways
+
+**1. Academic performance matters.**
+
+CGPA and standardized test scores show strong positive relationships with admission probability.
+
+**2. Research experience is an important applicant characteristic.**
+
+Applicants with research experience tend to have higher estimated admission probabilities in the dataset.
+
+**3. Application components also matter.**
+
+SOP and LOR ratings show positive relationships with admission probability, although their relationships are less pronounced than some academic indicators.
+
+**4. Applicant characteristics are interconnected.**
+
+Students with stronger academic profiles often exhibit stronger application characteristics across multiple variables.
+
+Overall, the analysis suggests that **academic performance and broader application quality are important characteristics associated with admission outcomes in the dataset**.
+
+> **Important:** The dataset contains estimated admission probabilities rather than confirmed admission decisions. Therefore, the results should be interpreted as associations within the dataset rather than causal evidence about real university admissions.
+
+## ⚠️ Limitations
+
+This analysis has several limitations:
+
+* The dataset contains **500 observations**, limiting generalization.
+* `Chance of Admit` represents an estimated probability rather than a confirmed admission outcome.
+* The dataset may not represent a particular university or admissions system.
+* Correlation does not establish causation.
+* The analysis does not account for all factors that may influence real admissions decisions.
+
+### Future Improvements
+
+A stronger version of the project could include:
+
+* Multiple linear regression
+* Logistic regression using an admission threshold
+* Random Forest classification
+* Feature importance
+* Cross-validation
+* ROC-AUC
+* SHAP explanations
+* University-level comparisons
+
+## 🛠️ Technologies
+
+* **Python**
+* **Pandas** — data manipulation
+* **NumPy** — numerical analysis
+* **Matplotlib** — visualization
+* **Seaborn** — statistical visualization
+* **Jupyter Notebook**
+* **Exploratory Data Analysis**
+* **Correlation Analysis**
+* **Statistical Analysis**
+
+### Methods
+
+`EDA` `Correlation Analysis` `Data Visualization` `Statistical Analysis` `Feature Analysis`
+
+## 📁 Repository Structure
 
 ```text
-Admisi
-  │
-  ▼
-Mahasiswa (NIM)
-  │
-  ▼
-Aktivitas Perkuliahan
-  │
-  ▼
-Wisuda / Kelulusan
+university-admissions-analysis/
+│
+├── data/
+│   └── admission.csv
+│
+├── figures/
+│   ├── correlation-heatmap.png
+│   ├── cgpa-admission.png
+│   ├── gre-admission.png
+│   └── research-experience.png
+│
+├── university-admissions-analysis.ipynb
+└── README.md
+```
+
+## 📌 Topics
+
+`Python` `Pandas` `EDA` `Data Analysis` `Data Visualization` `University Admissions` `Student Analytics` `Statistics` `Seaborn` `Matplotlib`
