@@ -104,19 +104,19 @@ This suggests that university selection and applicant characteristics are closel
 
 ### Correlation Heatmap
 
-![Correlation Heatmap](correlation_heatmap.png)
+![Correlation Heatmap](insight1.png)
 
 The correlation heatmap provides an overview of the relationships between academic characteristics, application attributes, and admission probability.
 
 ### Academic Performance vs. Admission Probability
 
-![CGPA vs Admission Probability](cgpa_admission.png)
+![CGPA vs Admission Probability](insight2.png)
 
 The relationship between CGPA and admission probability demonstrates the strong positive association between undergraduate academic performance and the estimated chance of admission.
 
 ### Research Experience
 
-![Research Experience](research_experience.png)
+![Research Experience](insight3.png)
 
 The comparison highlights differences in admission probability between applicants with and without research experience.
 
